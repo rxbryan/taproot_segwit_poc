@@ -1,0 +1,3 @@
+/home/rxbryan/work/sob/taproot_segwit_poc/test/CMakeFiles/e2etest.dir
+/home/rxbryan/work/sob/taproot_segwit_poc/test/CMakeFiles/edit_cache.dir
+/home/rxbryan/work/sob/taproot_segwit_poc/test/CMakeFiles/rebuild_cache.dir
