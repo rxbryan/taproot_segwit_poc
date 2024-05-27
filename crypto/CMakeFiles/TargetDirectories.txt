@@ -1,3 +1,0 @@
-/home/rxbryan/work/sob/taproot_segwit_poc/crypto/CMakeFiles/crypto.dir
-/home/rxbryan/work/sob/taproot_segwit_poc/crypto/CMakeFiles/edit_cache.dir
-/home/rxbryan/work/sob/taproot_segwit_poc/crypto/CMakeFiles/rebuild_cache.dir
