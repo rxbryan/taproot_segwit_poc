@@ -11,27 +11,45 @@
 #include "../crypto/curves.h"
 
 char* mnemonic = "shoe giraffe man toilet unable rail staff reason yellow shrug cup seminar uphold dolphin quit conduct stamp polar agent into salon omit speed install";
-//"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about";
 uint8_t seed[512 / 8] = {0};
+
+char* mnemonic_bip_test_vector = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about";
+uint8_t seed_bip_test_vector[512 / 8] = {0};
+
+
 char xpub[XPUB_SIZE] = {0};
 
 void setUp(void)
 {
     mnemonic_to_seed(mnemonic, "", seed, NULL);
+
+    mnemonic_to_seed(mnemonic_bip_test_vector, "", seed_bip_test_vector, NULL);
 }
 
 void tearDown(void)
 {
 }
 
-void test_generate_xpub(void)
+void test_generate_xpub_bip49(void)
 {
 
     char* bip32_path = "m/49'/1'/0'/0";
     uint32_t path [] = {0x80000031, 0x80000001, 0x80000000, 0};
     generate_xpub(path, (sizeof(path)/sizeof(path[0])), NULL, seed, xpub);
 
-    //TEST_ASSERT_EQUAL_STRING( "upub5DEPBmf18ejTHKYVb1ZZhE8j5Auc3ksVUMtQQS2o25dpDKyH6YAYjpmrYMPmuxEuXNsvAynGWPJQux6uivnyi7ZF9UbQXx3B4j27bmg37v9", xpub);
+    // parent_fingerprint = child_fingerprint = 0x7e62eab1
+    TEST_ASSERT_EQUAL_STRING( "upub5FxzXJirgiKUYJGqUJCqJ6Cx5Ce3eMaLpvR9NrWUzwu1qjNpJ25umQmWYkNb7ZA8DJJqwxBEauSFGyANgREWD5shwmXXqEHjLiBmAqiqVWa", xpub);
+}
+
+void test_generate_xpub_bip86(void)
+{
+
+    char* bip32_path = "m/86'/0'/0'";
+    uint32_t path [] = {0x80000056, 0x80000000, 0x80000000};
+    generate_xpub(path, (sizeof(path)/sizeof(path[0])), NULL, seed_bip_test_vector, xpub);
+
+    // using child_fingerprint as parent_fingerprint = 0xa7bea80d
+    TEST_ASSERT_EQUAL_STRING( "tpubDDFuj8kqBWwKTXbfea8PcbtyhTGLoPECxPAYrqdNstRnYAdNhfGH1PPmhEu2EbCfLsT9PPfG1jv2UMYbScBLRgwyBPwkRmeh3bhvtidYHmw", xpub);
 }
 
 void test_generate_address_segwit_p2sh(void) {
@@ -137,7 +155,8 @@ void test_sign_transaction(void) {
 int main(void)
 {
 UNITY_BEGIN();
-RUN_TEST(test_generate_xpub);
+RUN_TEST(test_generate_xpub_bip49);
+RUN_TEST(test_generate_xpub_bip86);
 RUN_TEST(test_generate_address_segwit_p2sh);
 RUN_TEST(test_sign_transaction);
 return UNITY_END();

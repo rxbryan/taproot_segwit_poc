@@ -1,1 +1,0 @@
-/usr/bin/cc -g CMakeFiles/e2etest.dir/e2e_test.c.o -o e2etest  -Wl,-rpath,/home/rxbryan/work/sob/taproot_segwit_poc/crypto ../src/librelease.a ../crypto/libcrypto.so ../unity/libunity.a

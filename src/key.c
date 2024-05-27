@@ -4,8 +4,11 @@
 #include "key.h"
 #include "../crypto/curves.h"
 
-const int P2WPKH_P2SH_TESTNET_VERSION_BYTES = 0x044a5262;
-const int P2WPKH_P2SH_MAINNET_VERSION_BYTES = 0x049d7cb2;
+const int P2WPKH_P2SH_TESTNET_XPUB_VERSION = 0x044a5262;
+const int P2WPKH_P2SH_MAINNET_XPUB_VERSION = 0x049d7cb2;
+
+const int P2TR_TESTNET_XPUB_VERSION = 0x043587cf;
+const int P2TR_MAINNET_XPUB_VERSION = 0x0488b21e;
 
 bool generate_xpub(const uint32_t *path,
                        size_t path_length,
@@ -34,10 +37,26 @@ bool generate_xpub(const uint32_t *path,
 
   fingerprint = hdnode_fingerprint(&node);
 
-  if (0 ==
-      hdnode_serialize_public(&node, fingerprint, P2WPKH_P2SH_TESTNET_VERSION_BYTES, str, XPUB_SIZE)) {
+  switch (path[0])
+  {
+  case P2TR:
+    if (0 == hdnode_serialize_public(
+          &node, fingerprint, P2TR_TESTNET_XPUB_VERSION, str, XPUB_SIZE))
+    {
+      status &= false;
+    }
+    break;
+  case P2WPKH_IN_P2SH:
+    if (0 == hdnode_serialize_public(
+          &node, fingerprint, P2WPKH_P2SH_TESTNET_XPUB_VERSION, str, XPUB_SIZE))
+    {
+      status &= false;
+    }
+  default:
     status &= false;
+    break;
   }
+
   memzero(&node, sizeof(HDNode));
   return status;
 
