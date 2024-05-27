@@ -32,7 +32,6 @@ void get_address(const uint8_t *seed,
   switch (path[0]) {
     case SEGWIT_P2SH_PATH:
       // ignoring the return status and handling by size of address
-      printf("in segwit path, \n");
       ecdsa_get_address_segwit_p2sh(node.public_key, TESTNET, node.curve->hasher_pubkey, node.curve->hasher_base58, addr, 36);
       break;
     case TAPROOT_PATH:

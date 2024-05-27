@@ -1,6 +1,15 @@
 #include <string.h>
-
+#include <stdio.h>
+#include "../crypto/ecdsa.h"
 #include "util.h"
+
+void print_byte_array(uint8_t *arr, size_t size, const char * array_name) {
+  printf("%s: ", array_name);
+    for (int i = 0; i < size; i++) {
+      printf("%x", arr[i]);
+    }
+    printf("\n");
+}
 
 size_t hex2bytes(uint8_t *dest, size_t count, const char *src) {
   size_t i = 0;
@@ -9,7 +18,7 @@ size_t hex2bytes(uint8_t *dest, size_t count, const char *src) {
       dest[i] = value;
   }
   return i;
-} 
+}
 
 bool parse_bip32_path(
                       const char* bip32_path,
@@ -58,4 +67,27 @@ bool parse_bip32_path(
   }
   *depth_out = depth;
   return true;
+}
+
+uint8_t btc_sig_to_script_sig(const uint8_t *sig,
+                              const uint8_t *pub_key,
+                              uint8_t *script_sig) {
+  uint8_t script_sig_len = 0;
+  if (NULL == sig || NULL == pub_key || NULL == script_sig) {
+    return script_sig_len;
+  }
+
+  uint8_t script[128] = {0};
+  memzero(script, sizeof(script));
+  uint8_t der_sig_len = ecdsa_sig_to_der(sig, &script[1]);
+
+  // PUSHDATA Opcode(1) + der_sig_len + SigHash Code(1) + PUSHDATA Opcode(1) +
+  // Public Key(33)
+  script_sig_len = 1 + der_sig_len + 2 + 33;
+  script[0] = der_sig_len + 1;
+  script[1 + der_sig_len] = 1;         // sighash code: 1
+  script[1 + der_sig_len + 1] = 33;    // push data opcode: 33
+  memcpy(&script[1 + der_sig_len + 1 + 1], pub_key, 33);
+  memcpy(script_sig, script, 128);
+  return script_sig_len;
 }

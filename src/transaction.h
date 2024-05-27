@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef uint8_t bytes;
+typedef uint8_t* bytes;
 
 typedef struct txnInput {
   bytes prev_txn;
@@ -35,5 +35,12 @@ typedef struct txnMetadata {
   uint32_t locktime;
   uint32_t sighash;
 }txnMetadata;
+
+void sign_input_transaction(
+                            txnInput *input_Data,
+                            txnOutput *output_data,
+                            txnMetadata *data,
+                            uint8_t *private_key,
+                            uint8_t** signatures);
 
 #endif
