@@ -1114,6 +1114,54 @@ sha3.c.s:
 	cd /home/rxbryan/work/sob/taproot_segwit_poc && $(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/crypto.dir/build.make crypto/CMakeFiles/crypto.dir/sha3.c.s
 .PHONY : sha3.c.s
 
+zkp_bip340.o: zkp_bip340.c.o
+.PHONY : zkp_bip340.o
+
+# target to build an object file
+zkp_bip340.c.o:
+	cd /home/rxbryan/work/sob/taproot_segwit_poc && $(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/crypto.dir/build.make crypto/CMakeFiles/crypto.dir/zkp_bip340.c.o
+.PHONY : zkp_bip340.c.o
+
+zkp_bip340.i: zkp_bip340.c.i
+.PHONY : zkp_bip340.i
+
+# target to preprocess a source file
+zkp_bip340.c.i:
+	cd /home/rxbryan/work/sob/taproot_segwit_poc && $(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/crypto.dir/build.make crypto/CMakeFiles/crypto.dir/zkp_bip340.c.i
+.PHONY : zkp_bip340.c.i
+
+zkp_bip340.s: zkp_bip340.c.s
+.PHONY : zkp_bip340.s
+
+# target to generate assembly for a file
+zkp_bip340.c.s:
+	cd /home/rxbryan/work/sob/taproot_segwit_poc && $(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/crypto.dir/build.make crypto/CMakeFiles/crypto.dir/zkp_bip340.c.s
+.PHONY : zkp_bip340.c.s
+
+zkp_context.o: zkp_context.c.o
+.PHONY : zkp_context.o
+
+# target to build an object file
+zkp_context.c.o:
+	cd /home/rxbryan/work/sob/taproot_segwit_poc && $(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/crypto.dir/build.make crypto/CMakeFiles/crypto.dir/zkp_context.c.o
+.PHONY : zkp_context.c.o
+
+zkp_context.i: zkp_context.c.i
+.PHONY : zkp_context.i
+
+# target to preprocess a source file
+zkp_context.c.i:
+	cd /home/rxbryan/work/sob/taproot_segwit_poc && $(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/crypto.dir/build.make crypto/CMakeFiles/crypto.dir/zkp_context.c.i
+.PHONY : zkp_context.c.i
+
+zkp_context.s: zkp_context.c.s
+.PHONY : zkp_context.s
+
+# target to generate assembly for a file
+zkp_context.c.s:
+	cd /home/rxbryan/work/sob/taproot_segwit_poc && $(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/crypto.dir/build.make crypto/CMakeFiles/crypto.dir/zkp_context.c.s
+.PHONY : zkp_context.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1246,6 +1294,12 @@ help:
 	@echo "... sha3.o"
 	@echo "... sha3.i"
 	@echo "... sha3.s"
+	@echo "... zkp_bip340.o"
+	@echo "... zkp_bip340.i"
+	@echo "... zkp_bip340.s"
+	@echo "... zkp_context.o"
+	@echo "... zkp_context.i"
+	@echo "... zkp_context.s"
 .PHONY : help
 
 

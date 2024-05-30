@@ -63,12 +63,7 @@
 
 // support Ethereum operations
 #ifndef USE_ETHEREUM
-#define USE_ETHEREUM 1
-#endif
-
-// support Graphene operations (STEEM, BitShares)
-#ifndef USE_GRAPHENE
-#define USE_GRAPHENE 0
+#define USE_ETHEREUM 0
 #endif
 
 // support NEM operations
@@ -93,8 +88,12 @@
 
 // add way how to mark confidential data
 #ifndef CONFIDENTIAL
-// TODO: Add attribute keep confidential variables in SRAM2 CHI-2141
 #define CONFIDENTIAL
+#endif
+
+// add way to mark functions whose return value should always be checked
+#ifndef __wur
+#define __wur __attribute__((warn_unused_result))
 #endif
 
 #endif

@@ -31,6 +31,7 @@ set(SRCS
     hmac.c
     bip32.c
     bip39.c
+    bip39_english.c
     pbkdf2.c
     base58.c
     base32.c
@@ -63,10 +64,16 @@ set(SRCS
     memzero.c
     hmac_drbg.c
     rfc6979.c
+    zkp_bip340.c
+    zkp_context.c
+    
 )
+
 
 # Add source files
 add_library(crypto SHARED ${SRCS})
+target_compile_definitions( crypto PUBLIC USE_INSECURE_PRNG)
+target_link_libraries(crypto secp256k1)
 
 # Set target build options
 target_compile_definitions(crypto PRIVATE

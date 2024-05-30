@@ -95,9 +95,7 @@ Issue Date: 20/12/2007
 
 /*  PLATFORM SPECIFIC INCLUDES */
 
-#define IS_BIG_ENDIAN 4321
-#define IS_LITTLE_ENDIAN 1234
-#define PLATFORM_BYTE_ORDER IS_LITTLE_ENDIAN
+#include "brg_endian.h"
 
 /*  CONFIGURATION - THE USE OF DEFINES
 
@@ -193,7 +191,7 @@ Issue Date: 20/12/2007
 	assembler code will be used with an AESNI build, if it is then
 	AES_REV_DKS must NOT be defined when the assembler files are
 	built (the definition of USE_INTEL_AES_IF_PRESENT in the assembler
-	code files must match that here if they are used). 
+	code files must match that here if they are used).
 */
 
 #if 0 && defined( INTEL_AES_POSSIBLE ) && !defined( USE_INTEL_AES_IF_PRESENT )

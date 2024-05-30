@@ -268,7 +268,7 @@ uint8_t inv_affine(const uint8_t x)
 static int init = 0;
 
 AES_RETURN aes_init(void)
-{   uint32_t  i, w;
+{   uint32_t  i = 0, w = 0;
 
 #if defined(FF_TABLES)
 
@@ -303,7 +303,7 @@ AES_RETURN aes_init(void)
     }
 
     for(i = 0; i < 256; ++i)
-    {   uint8_t    b;
+    {   uint8_t    b = 0;
 
         b = fwd_affine(gf_inv((uint8_t)i));
         w = bytes2word(f2(b), b, b, f3(b));
@@ -383,7 +383,7 @@ AES_RETURN aes_init(void)
     return EXIT_SUCCESS;
 }
 
-/* 
+/*
    Automatic code initialisation (suggested by by Henrik S. Gaßmann)
    based on code provided by Joe Lowe and placed in the public domain at:
    http://stackoverflow.com/questions/1113409/attribute-constructor-equivalent-in-vc
