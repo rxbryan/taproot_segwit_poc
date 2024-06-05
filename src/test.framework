@@ -1,0 +1,91 @@
+{
+  "txid":"c4d25a5e7cea3b53692aefccbb9c5a67acd428df21e3f00150882559b382362b",
+  "version":2,
+  "locktime":2817052,
+  "vin":[
+    {
+      "txid":"a6f6502d770a85a7fe1b27ab74036d91d6311248eb72dcb744e973aeb71e3d15",
+      "vout":0,
+      "prevout":{
+        "scriptpubkey":"00141c4973c5154e70cbf24dfb9644a55e767b2ea2e5",
+        "scriptpubkey_asm":"OP_0 OP_PUSHBYTES_20 1c4973c5154e70cbf24dfb9644a55e767b2ea2e5",
+        "scriptpubkey_type":"v0_p2wpkh",
+        "scriptpubkey_address":"tb1qr3yh83g4fecvhujdlwtyff27weajagh9knh9x7",
+        "value":283946751
+      },
+      "scriptsig":"",
+      "scriptsig_asm":"",
+      "witness":[
+        "30440220247a90cc72da844678acc443c94fff2fbe8e5ea9492cbf86bae351a4be0b21cd02204a87bed14725b19eae0d60cc104b4d84124da432baf25d72ff49a24c0df4131e01",
+        "026c5f7b0f781462956559d2ff44b3ab7c9b8b6ef004b7c5fa015c66f37d06691e"
+      ],
+      "is_coinbase":false,
+      "sequence":4294967293
+    }
+  ],
+  "vout":[
+      {
+        "scriptpubkey":"a914eaf97514c5ac1e41e413502e97ae42ebf27ace3a87",
+        "scriptpubkey_asm":"OP_HASH160 OP_PUSHBYTES_20 eaf97514c5ac1e41e413502e97ae42ebf27ace3a OP_EQUAL",
+        "scriptpubkey_type":"p2sh",
+        "scriptpubkey_address":"2NEfewmmZkfKaxWaXbgxVVedQd9P52PUqdN",
+        "value":18123
+      },
+      {
+        "scriptpubkey":"a914b2b0182ef0a26013cbbb99a42689d5a7846657a787",
+        "scriptpubkey_asm":"OP_HASH160 OP_PUSHBYTES_20 b2b0182ef0a26013cbbb99a42689d5a7846657a7 OP_EQUAL",
+        "scriptpubkey_type":"p2sh",
+        "scriptpubkey_address":"2N9Y3DgqwrgiZC4F2StNZBBfEPT4SfXTnhm",
+        "value":283920219
+      }
+  ],
+  "size":224,
+  "weight":569,
+  "sigops":1,
+  "fee":8409,
+  "status":
+  {
+    "confirmed":true,
+    "block_height":2817059,
+    "block_hash":"0000000000000002a128fb350d89ec0e01ff9c72f301c29e733b07c240e41598",
+    "block_time":1716391537
+  }
+}
+
+char tx_hex[] = "02000000000101153d1eb7ae73e944b7dc72eb481231d6916d0374ab271bfea7850a772d50f6a60000000000fdffffff02cb4600000000000017a914eaf97514c5ac1e41e413502e97ae42ebf27ace3a875b47ec100000000017a914b2b0182ef0a26013cbbb99a42689d5a7846657a787024730440220247a90cc72da844678acc443c94fff2fbe8e5ea9492cbf86bae351a4be0b21cd02204a87bed14725b19eae0d60cc104b4d84124da432baf25d72ff49a24c0df4131e0121026c5f7b0f781462956559d2ff44b3ab7c9b8b6ef004b7c5fa015c66f37d06691e1cfc2a00"
+
+char mnemonic[] = "shoe giraffe man toilet unable rail staff reason yellow shrug cup seminar uphold dolphin quit conduct stamp polar agent into salon omit speed install"
+
+char bip32_path = "m/49'/1'/0'/0/0"
+
+out1_addr = 2N1L3QN5XvT7brpUnndKpaziedvXcHp2ZSF
+out1_pub_keyhash = 58AA401495D6B40ABFFD23189ED47618B912F4F1
+
+out2_addr = 2NCMF8E35KhcqHJyB8ELQym6Px8FRqmfM6m
+out2_pub_keyhash = D18DD5B029517C77AB553B8A94D680B97787A9D7
+
+script_pubkey1 = 0xA914 58AA401495D6B40ABFFD23189ED47618B912F4F1 87
+script_pubkey2 = 0xA914 D18DD5B029517C77AB553B8A94D680B97787A9D7 87
+
+
+01000000
+b0287b4a252ac05af83d2dcef00ba313af78a3e9c329afa216eb3aa2a7b4613a
+18606b350cd8bf565266bc352f0caddcf01e8fa789dd8a15386327cf8cabe198
+db6b1b20aa0fd7b23880be2ecbd4a98130974cf4748fb66092ac4d3ceb1a547701000000
+1976a9144733f37cf4db86fbc2efed2500b4f4e49f31202388ac
+00ca9a3b00000000
+feffffff
+de984f44532e2173ca0d64314fcefe6d30da6f8cf27bafa706da61df8a226c83
+92040000
+01000000
+
+01000000
+b0287b4a252ac05af83d2dcef00ba313af78a3e9c329afa216eb3aa2a7b4613a
+18606b350cd8bf565266bc352f0caddcf01e8fa789dd8a15386327cf8cabe198
+db6b1b20aa0fd7b23880be2ecbd4a98130974cf4748fb66092ac4d3ceb1a547701000000
+1976a91479091972186c449eb1ded22b78e40d009bdf008988ac
+00ca9a3b00000000
+feffffff
+de984f44532e2173ca0d64314fcefe6d30da6f8cf27bafa706da61df8a226c83
+920400000
+1000000

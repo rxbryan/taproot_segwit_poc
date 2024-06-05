@@ -6,7 +6,7 @@
 void print_byte_array(uint8_t *arr, size_t size, const char * array_name) {
   printf("%s: ", array_name);
     for (int i = 0; i < size; i++) {
-      printf("%x", arr[i]);
+      printf("%02x", arr[i]);
     }
     printf("\n");
 }
