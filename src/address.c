@@ -12,7 +12,7 @@
 #include "../secp256k1/include/secp256k1.h"
 #include "../secp256k1/include/secp256k1_extrakeys.h"
 
-void generate_taproot_address(uint8_t * , char *);
+void generate_taproot_address(uint8_t * , uint8_t *, const char *, char *);
 
 void get_address(const uint8_t *seed,
                               const uint32_t *path,
@@ -20,7 +20,7 @@ void get_address(const uint8_t *seed,
                               uint8_t *public_key,
                               char *address){
   HDNode node = {0};
-  char addr[50] = "";
+  char addr[63] = {0};
   size_t address_length = 0;
   bool status = true;
   uint32_t fingerprint = 0x0;
@@ -40,15 +40,16 @@ void get_address(const uint8_t *seed,
   switch (path[0]) {
     case SEGWIT_P2SH_PATH:
       // ignoring the return status and handling by size of address
-      ecdsa_get_address_segwit_p2sh(node.public_key, TESTNET, node.curve->hasher_pubkey, node.curve->hasher_base58, addr, 36);
+      ecdsa_get_address_segwit_p2sh(node.public_key, SEGWIT_TESTNET, node.curve->hasher_pubkey, node.curve->hasher_base58, addr, 36);
       break;
     case TAPROOT_PATH:
-    generate_taproot_address(node.public_key, address);
+    generate_taproot_address(node.public_key, node.private_key, BECHM_HRP_TESTNET, addr);
     default:
       break;
   }
 
   address_length = strnlen(addr, sizeof(addr));
+  printf("address_len: %lu", address_length);
 
   assert(address_length > 0);
 
@@ -70,7 +71,7 @@ void get_address(const uint8_t *seed,
   return;
 }
 
-void generate_taproot_address(uint8_t * public_key, char * address_out) {
+void generate_taproot_address(uint8_t * public_key, uint8_t * private_key, const char * hrp, char * address_out) {
   if (!zkp_context_is_initialized()) {
     // init context
     zkp_context_init();
@@ -88,7 +89,11 @@ void generate_taproot_address(uint8_t * public_key, char * address_out) {
   // Check if y-coordinate is odd
   if (SECP256K1_TAG_PUBKEY_ODD == public_key[0]) {
     // negate public key
+    printf("Negating keys...\n");
     status = secp256k1_ec_pubkey_negate(context, &pubkey);
+    assert(status == 1);
+    status = secp256k1_ec_seckey_negate(context, private_key);
+    assert(status == 1);
     
   }
 
@@ -105,14 +110,30 @@ void generate_taproot_address(uint8_t * public_key, char * address_out) {
       assert(1);
   }
 
+  zkp_context_release_writable();
+
+
+  //teeak sec key
+   uint8_t tweaked_sec_key[32] = {0};
+  status = zkp_bip340_tweak_private_key(private_key, NULL, tweaked_sec_key);
+  printf("tweak sec status: %i\n", status);
+  assert(status != 0);
+  print_byte_array(private_key, 32, "private_key");
+  print_byte_array(tweaked_sec_key, 32, "tweaked sec key");
+
+  //context = zkp_context_get_read_only();
   //tweak public key
   uint8_t output_public_key[32] = {0};
 
   status = zkp_bip340_tweak_public_key(xonly_in,
                                 NULL,
                                 output_public_key);
+
+  printf("tweak public status: %i\n", status);
   
-  assert(status != 0);
+  assert(status == 0);
+
+
 
   print_byte_array(public_key, 33, "public key");
   print_byte_array(output_public_key, 32, "output public key");
@@ -128,14 +149,16 @@ void generate_taproot_address(uint8_t * public_key, char * address_out) {
   // encode address
 
   //bech32_encode(address_out, "bc", address_raw, 21, BECH32_ENCODING_BECH32M);
-  segwit_addr_encode(address_out,"bc", 1, output_public_key, 32);
+  char address[76] = {0};
+  segwit_addr_encode(address,hrp, 1, output_public_key, 32);
   //print_byte_array(address_raw, 21, "address_raw");
 
-  print_byte_array (address_out, 33, "address out");
+  //print_byte_array (address, 33, "address out");
+  strcpy(address_out, address);
 
-  printf("address out: %s", address_out);
+  printf("address out: %s\n", address_out);
   //uint8_t ser_pubkey[33] = {0};
   //secp256k1_ec_pubkey_serialize(context, &ser_pubkey, 33, &pubkey, SECP256K1_EC_COMPRESSED);
 
-  zkp_context_release_writable();
+  //zkp_context_release_writable();
 }
